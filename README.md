@@ -17,7 +17,7 @@ You can configure multiple connections in configuration:
 
 ```php
 return [
-    'rabbitmq' => [
+    'rabbitmq_module' => [
         'connection' => [
             // connection name
             'default' => [ // default values
@@ -62,7 +62,7 @@ You can configure multiple producers in configuration:
 
 ```php
 return [
-    'rabbitmq' => [
+    'rabbitmq_module' => [
         'producer' => [
             'producer_name' => [
                 'connection' => 'default', // the connection name
@@ -126,7 +126,7 @@ You can configure multiple consumers in configuration:
 
 ```php
 return [
-    'rabbitmq' => [
+    'rabbitmq_module' => [
         'consumer' => [
             'consumer_name' => [
                 'description' => 'Consumer description',
@@ -233,7 +233,7 @@ Example:
 
 ```php
 return [
-    'rabbitmq' => [
+    'rabbitmq_module' => [
         'consumer' => [
             'consumer_name' => [
                 // ...
@@ -263,9 +263,9 @@ return [
 
 There are some console commands available:
 
-- ```rabbitmq setup-fabric```: Setup fabric for each service, declaring exchanges and queues
-- ```rabbitmq list consumers```: List available consumers
-- ```rabbitmq consumer <name> [--without-signals|-w]```: Start a consumer by name
-- ```rabbitmq rpc_server <name> [--without-signals|-w]```: Start a rpc server by name
-- ```rabbitmq stdin-producer <name> [--route=] <msg>```: Send a message with a producer
+- ```rabbitmq-module setup-fabric```: Setup fabric for each service, declaring exchanges and queues
+- ```rabbitmq-module list consumers```: List available consumers
+- ```rabbitmq-module consumer <name> [--without-signals|-w]```: Start a consumer by name
+- ```rabbitmq-module rpc_server <name> [--without-signals|-w]```: Start a rpc server by name
+- ```rabbitmq-module stdin-producer <name> [--route=] <msg>```: Send a message with a producer
 
