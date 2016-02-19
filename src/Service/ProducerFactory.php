@@ -17,7 +17,7 @@ class ProducerFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'RabbitMqModule\\Options\\Producer';
+        return Options::class;
     }
 
     /**
@@ -46,7 +46,7 @@ class ProducerFactory extends AbstractFactory
     protected function createProducer(ServiceLocatorInterface $serviceLocator, Options $options)
     {
         /** @var AbstractConnection $connection */
-        $connection = $serviceLocator->get(sprintf('rabbitmq.connection.%s', $options->getConnection()));
+        $connection = $serviceLocator->get(sprintf('%s.connection.%s', $this->configKey, $options->getConnection()));
         $producer = new Producer($connection);
         $producer->setExchangeOptions($options->getExchange());
         if ($options->getQueue()) {

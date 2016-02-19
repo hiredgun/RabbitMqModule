@@ -17,7 +17,7 @@ class ConsumerFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'RabbitMqModule\\Options\\Consumer';
+        return Options::class;
     }
 
     /**
@@ -57,7 +57,7 @@ class ConsumerFactory extends AbstractFactory
         }
 
         /** @var \PhpAmqpLib\Connection\AbstractConnection $connection */
-        $connection = $serviceLocator->get(sprintf('rabbitmq.connection.%s', $options->getConnection()));
+        $connection = $serviceLocator->get(sprintf('%s.connection.%s', $this->configKey, $options->getConnection()));
         $consumer = new Consumer($connection);
         $consumer->setQueueOptions($options->getQueue());
         $consumer->setExchangeOptions($options->getExchange());

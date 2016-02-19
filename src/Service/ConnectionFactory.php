@@ -7,6 +7,7 @@ use RabbitMqModule\Service\Connection\ConnectionFactoryInterface;
 use RuntimeException;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use RabbitMqModule\Options\Connection as ConnectionOptions;
+use RabbitMqModule\Service\Connection;
 
 class ConnectionFactory extends AbstractFactory
 {
@@ -14,9 +15,9 @@ class ConnectionFactory extends AbstractFactory
      * @var array
      */
     protected $factoryMap = [
-        'stream' => 'RabbitMqModule\\Service\\Connection\\StreamConnectionFactory',
-        'socket' => 'RabbitMqModule\\Service\\Connection\\SocketConnectionFactory',
-        'ssl' => 'RabbitMqModule\\Service\\Connection\\SSLConnectionFactory',
+        'stream' => Connection\StreamConnectionFactory::class,
+        'socket' => Connection\SocketConnectionFactory::class,
+        'ssl' => Connection\SSLConnectionFactory::class,
     ];
 
     /**
@@ -46,7 +47,7 @@ class ConnectionFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'RabbitMqModule\\Options\\Connection';
+        return ConnectionOptions::class;
     }
 
     /**

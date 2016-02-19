@@ -22,10 +22,10 @@ class RpcServerControllerTest extends AbstractConsoleControllerTestCase
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('rabbitmq.rpc_server.foo', $consumer);
+        $serviceManager->setService('rabbitmq_module.rpc_server.foo', $consumer);
 
         ob_start();
-        $this->dispatch('rabbitmq rpc_server foo');
+        $this->dispatch('rabbitmq-module rpc_server foo');
         ob_end_clean();
 
         $this->assertResponseStatusCode(0);
@@ -34,7 +34,7 @@ class RpcServerControllerTest extends AbstractConsoleControllerTestCase
     public function testDispatchWithInvalidTestConsumer()
     {
         ob_start();
-        $this->dispatch('rabbitmq rpc_server foo');
+        $this->dispatch('rabbitmq-module rpc_server foo');
         $output = ob_get_clean();
 
         static::assertRegExp('/No rpc server with name "foo" found/', $output);

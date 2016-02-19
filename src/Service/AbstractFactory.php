@@ -19,6 +19,11 @@ abstract class AbstractFactory implements FactoryInterface
     protected $options;
 
     /**
+     * @var string
+     */
+    protected $configKey = 'rabbitmq_module';
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -51,13 +56,14 @@ abstract class AbstractFactory implements FactoryInterface
             $name = $this->getName();
         }
 
+        /** @var array $options */
         $options = $sl->get('Configuration');
-        $options = $options['rabbitmq'];
+        $options = $options[$this->configKey];
         $options = isset($options[$key][$name]) ? $options[$key][$name] : null;
 
         if (null === $options) {
             throw new RuntimeException(
-                sprintf('Options with name "%s" could not be found in "rabbitmq.%s"', $name, $key)
+                sprintf('Options with name "%s" could not be found in "%s.%s"', $name, $this->configKey, $key)
             );
         }
 

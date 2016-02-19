@@ -46,7 +46,7 @@ class SetupFabricController extends AbstractConsoleController
         foreach ($serviceKeys as $serviceKey) {
             $keys = $this->getServiceKeys($serviceKey);
             foreach ($keys as $key) {
-                $parts[] = $this->getServiceLocator()->get(sprintf('rabbitmq.%s.%s', $serviceKey, $key));
+                $parts[] = $this->getServiceLocator()->get(sprintf('rabbitmq_module.%s.%s', $serviceKey, $key));
             }
         }
 
@@ -57,10 +57,10 @@ class SetupFabricController extends AbstractConsoleController
     {
         /** @var array $config */
         $config = $this->getServiceLocator()->get('Configuration');
-        if (!isset($config['rabbitmq'][$service])) {
-            throw new \RuntimeException(sprintf('No service "rabbitmq.%s" found in configuration', $service));
+        if (!isset($config['rabbitmq_module'][$service])) {
+            throw new \RuntimeException(sprintf('No service "rabbitmq_module.%s" found in configuration', $service));
         }
 
-        return array_keys($config['rabbitmq'][$service]);
+        return array_keys($config['rabbitmq_module'][$service]);
     }
 }

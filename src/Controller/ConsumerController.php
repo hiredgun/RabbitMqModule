@@ -25,7 +25,7 @@ class ConsumerController extends AbstractConsoleController
 
         $withoutSignals = $request->getParam('without-signals') || $request->getParam('w');
 
-        $serviceName = sprintf('rabbitmq.consumer.%s', $request->getParam('name'));
+        $serviceName = sprintf('rabbitmq_module.consumer.%s', $request->getParam('name'));
 
         if (!$this->getServiceLocator()->has($serviceName)) {
             $this->getConsole()->writeLine(
@@ -73,11 +73,11 @@ class ConsumerController extends AbstractConsoleController
         /** @var array $config */
         $config = $this->getServiceLocator()->get('Configuration');
 
-        if (!array_key_exists('rabbitmq', $config) || !array_key_exists('consumer', $config['rabbitmq'])) {
-            return 'No \'rabbitmq.consumer\' configuration key found!';
+        if (!array_key_exists('rabbitmq_module', $config) || !array_key_exists('consumer', $config['rabbitmq_module'])) {
+            return 'No \'rabbitmq_module.consumer\' configuration key found!';
         }
 
-        $consumers = $config['rabbitmq']['consumer'];
+        $consumers = $config['rabbitmq_module']['consumer'];
 
         if (!is_array($consumers) || count($consumers) === 0) {
             return 'No consumers defined!';

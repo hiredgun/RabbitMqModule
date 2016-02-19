@@ -21,7 +21,7 @@ class AbstractServiceFactoryTest extends PHPUnit_Framework_TestCase
         $this->serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'connection' => [
                         'default' => [],
                     ],
@@ -35,10 +35,10 @@ class AbstractServiceFactoryTest extends PHPUnit_Framework_TestCase
 
                         ],
                     ],
-                ],
-                'rabbitmq_factories' => [
-                    'foo' => 'fooFactory',
-                    'producer' => 'RabbitMqModule\\Service\\ServiceFactoryMock',
+                    'factories' => [
+                        'foo' => 'fooFactory',
+                        'producer' => 'RabbitMqModule\\Service\\ServiceFactoryMock',
+                    ],
                 ],
             ]
         );
@@ -48,8 +48,8 @@ class AbstractServiceFactoryTest extends PHPUnit_Framework_TestCase
     {
         $sm = $this->serviceManager;
         $factory = new AbstractServiceFactory();
-        static::assertTrue($factory->canCreateServiceWithName($sm, 'rabbitmq.foo.bar', 'rabbitmq.foo.bar'));
-        static::assertFalse($factory->canCreateServiceWithName($sm, 'rabbitmq.foo.bar', 'rabbitmq.foo.bar2'));
+        static::assertTrue($factory->canCreateServiceWithName($sm, 'rabbitmq_module.foo.bar', 'rabbitmq_module.foo.bar'));
+        static::assertFalse($factory->canCreateServiceWithName($sm, 'rabbitmq_module.foo.bar', 'rabbitmq_module.foo.bar2'));
     }
 
     public function testCreateServiceWithName()
@@ -58,10 +58,10 @@ class AbstractServiceFactoryTest extends PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $sm = $this->serviceManager;
-        $sm->setService('rabbitmq.connection.default', $connection);
+        $sm->setService('rabbitmq_module.connection.default', $connection);
         $factory = new AbstractServiceFactory();
         static::assertTrue(
-            $factory->createServiceWithName($sm, 'rabbitmq.producer.foo', 'rabbitmq.producer.foo')
+            $factory->createServiceWithName($sm, 'rabbitmq_module.producer.foo', 'rabbitmq_module.producer.foo')
         );
     }
 
@@ -73,7 +73,7 @@ class AbstractServiceFactoryTest extends PHPUnit_Framework_TestCase
         $sm = $this->serviceManager;
         $factory = new AbstractServiceFactory();
         static::assertTrue(
-            $factory->createServiceWithName($sm, 'rabbitmq.unknown-key.foo', 'rabbitmq.unknown-key.foo')
+            $factory->createServiceWithName($sm, 'rabbitmq_module.unknown-key.foo', 'rabbitmq_module.unknown-key.foo')
         );
     }
 }

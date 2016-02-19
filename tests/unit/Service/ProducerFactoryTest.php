@@ -13,7 +13,7 @@ class ProducerFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'producer' => [
                         'foo' => [
                             'connection' => 'foo',
@@ -34,7 +34,7 @@ class ProducerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
         $serviceManager->setService(
-            'rabbitmq.connection.foo',
+            'rabbitmq_module.connection.foo',
             $connection
         );
 

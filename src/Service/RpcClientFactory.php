@@ -18,7 +18,7 @@ class RpcClientFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'RabbitMqModule\\Options\\RpcClient';
+        return Options::class;
     }
 
     /**
@@ -47,7 +47,7 @@ class RpcClientFactory extends AbstractFactory
     protected function createClient(ServiceLocatorInterface $serviceLocator, Options $options)
     {
         /** @var AbstractConnection $connection */
-        $connection = $serviceLocator->get(sprintf('rabbitmq.connection.%s', $options->getConnection()));
+        $connection = $serviceLocator->get(sprintf('%s.connection.%s', $this->configKey, $options->getConnection()));
         $producer = new RpcClient($connection);
         $producer->setSerializer($options->getSerializer());
 

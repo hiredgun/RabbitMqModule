@@ -23,19 +23,19 @@ class SetupFabricControllerTest extends AbstractConsoleControllerTestCase
         $service->expects(static::exactly(4))
             ->method('setupFabric');
         $someOtherService = new \ArrayObject();
-        $serviceManager->setService('rabbitmq.consumer.foo-consumer1', $service);
-        $serviceManager->setService('rabbitmq.consumer.foo-consumer2', $service);
-        $serviceManager->setService('rabbitmq.producer.bar-producer1', $service);
-        $serviceManager->setService('rabbitmq.producer.bar-producer2', $service);
-        $serviceManager->setService('rabbitmq.producer.bar-producer-fake', $someOtherService);
+        $serviceManager->setService('rabbitmq_module.consumer.foo-consumer1', $service);
+        $serviceManager->setService('rabbitmq_module.consumer.foo-consumer2', $service);
+        $serviceManager->setService('rabbitmq_module.producer.bar-producer1', $service);
+        $serviceManager->setService('rabbitmq_module.producer.bar-producer2', $service);
+        $serviceManager->setService('rabbitmq_module.producer.bar-producer-fake', $someOtherService);
 
         /** @var array $configuration */
         $configuration = $serviceManager->get('Configuration');
-        $configuration['rabbitmq']['consumer'] = [
+        $configuration['rabbitmq_module']['consumer'] = [
             'foo-consumer1' => [],
             'foo-consumer2' => [],
         ];
-        $configuration['rabbitmq']['producer'] = [
+        $configuration['rabbitmq_module']['producer'] = [
             'bar-producer1' => [],
             'bar-producer2' => [],
             'bar-producer-fake' => [],
@@ -43,7 +43,7 @@ class SetupFabricControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setService('Configuration', $configuration);
 
         ob_start();
-        $this->dispatch('rabbitmq setup-fabric');
+        $this->dispatch('rabbitmq-module setup-fabric');
         ob_end_clean();
 
         $this->assertResponseStatusCode(0);
@@ -56,11 +56,11 @@ class SetupFabricControllerTest extends AbstractConsoleControllerTestCase
 
         /** @var array $configuration */
         $configuration = $serviceManager->get('Configuration');
-        $configuration['rabbitmq'] = null;
+        $configuration['rabbitmq_module'] = null;
         $serviceManager->setService('Configuration', $configuration);
 
         ob_start();
-        $this->dispatch('rabbitmq setup-fabric');
+        $this->dispatch('rabbitmq-module setup-fabric');
         ob_end_clean();
 
         $this->assertResponseStatusCode(1);

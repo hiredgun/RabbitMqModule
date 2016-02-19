@@ -23,10 +23,10 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('rabbitmq.consumer.foo', $consumer);
+        $serviceManager->setService('rabbitmq_module.consumer.foo', $consumer);
 
         ob_start();
-        $this->dispatch('rabbitmq consumer foo');
+        $this->dispatch('rabbitmq-module consumer foo');
         ob_end_clean();
 
         $this->assertResponseStatusCode(0);
@@ -35,7 +35,7 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
     public function testDispatchWithInvalidTestConsumer()
     {
         ob_start();
-        $this->dispatch('rabbitmq consumer foo');
+        $this->dispatch('rabbitmq-module consumer foo');
         $output = ob_get_clean();
 
         static::assertRegExp('/No consumer with name "foo" found/', $output);
@@ -77,10 +77,10 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('rabbitmq.consumer.foo', $consumer);
+        $serviceManager->setService('rabbitmq_module.consumer.foo', $consumer);
 
         ob_start();
-        $this->dispatch('rabbitmq consumer foo --without-signals');
+        $this->dispatch('rabbitmq-module consumer foo --without-signals');
         ob_end_clean();
 
         static::assertTrue(defined('AMQP_WITHOUT_SIGNALS'));
@@ -91,7 +91,7 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
     public function testListConsumersWithNoConsumers()
     {
         ob_start();
-        $this->dispatch('rabbitmq list consumers');
+        $this->dispatch('rabbitmq-module list consumers');
         ob_end_clean();
 
         $this->assertConsoleOutputContains('No consumers defined!');
@@ -105,14 +105,14 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setAllowOverride(true);
         /** @var array $configuration */
         $configuration = $serviceManager->get('Configuration');
-        unset($configuration['rabbitmq']);
+        unset($configuration['rabbitmq_module']);
         $serviceManager->setService('Configuration', $configuration);
 
         ob_start();
-        $this->dispatch('rabbitmq list consumers');
+        $this->dispatch('rabbitmq-module list consumers');
         ob_end_clean();
 
-        $this->assertConsoleOutputContains('No \'rabbitmq.consumer\' configuration key found!');
+        $this->assertConsoleOutputContains('No \'rabbitmq_module.consumer\' configuration key found!');
 
         $this->assertResponseStatusCode(0);
     }
@@ -123,14 +123,14 @@ class ConsumerControllerTest extends AbstractConsoleControllerTestCase
         $serviceManager->setAllowOverride(true);
         /** @var array $configuration */
         $configuration = $serviceManager->get('Configuration');
-        $configuration['rabbitmq']['consumer'] = [
+        $configuration['rabbitmq_module']['consumer'] = [
             'consumer_key1' => [],
             'consumer_key2' => ['description' => 'foo description']
         ];
         $serviceManager->setService('Configuration', $configuration);
 
         ob_start();
-        $this->dispatch('rabbitmq list consumers');
+        $this->dispatch('rabbitmq-module list consumers');
         $content = ob_get_contents();
         ob_end_clean();
 

@@ -26,10 +26,10 @@ class StdInProducerControllerTest extends AbstractConsoleControllerTestCase
 
         $serviceManager = $this->getApplicationServiceLocator();
         $serviceManager->setAllowOverride(true);
-        $serviceManager->setService('rabbitmq.producer.foo', $producer);
+        $serviceManager->setService('rabbitmq_module.producer.foo', $producer);
 
         ob_start();
-        $this->dispatch('rabbitmq stdin-producer foo --route=bar msg');
+        $this->dispatch('rabbitmq-module stdin-producer foo --route=bar msg');
         ob_end_clean();
 
         $this->assertResponseStatusCode(0);
@@ -38,7 +38,7 @@ class StdInProducerControllerTest extends AbstractConsoleControllerTestCase
     public function testDispatchWithInvalidTestProducer()
     {
         ob_start();
-        $this->dispatch('rabbitmq stdin-producer foo --route=bar msg');
+        $this->dispatch('rabbitmq-module stdin-producer foo --route=bar msg');
         $output = ob_get_clean();
 
         static::assertRegExp('/No producer with name "foo" found/', $output);

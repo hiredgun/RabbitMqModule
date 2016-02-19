@@ -13,7 +13,7 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'connection' => [
                         'foo' => [
                             'type' => 'bar',
@@ -50,7 +50,7 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'connection' => [
                         'foo' => [
                             'type' => 'foo',
@@ -73,7 +73,7 @@ class ConnectionFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'connection' => [
                         'foo' => [
                             'type' => 'bar',

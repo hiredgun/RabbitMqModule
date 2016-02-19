@@ -17,7 +17,7 @@ class RpcServerFactory extends AbstractFactory
      */
     public function getOptionsClass()
     {
-        return 'RabbitMqModule\\Options\\RpcServer';
+        return Options::class;
     }
 
     /**
@@ -57,7 +57,7 @@ class RpcServerFactory extends AbstractFactory
         }
 
         /** @var \PhpAmqpLib\Connection\AbstractConnection $connection */
-        $connection = $serviceLocator->get(sprintf('rabbitmq.connection.%s', $options->getConnection()));
+        $connection = $serviceLocator->get(sprintf('%s.connection.%s', $this->configKey, $options->getConnection()));
         $server = new RpcServer($connection);
         $server->setQueueOptions($options->getQueue());
         $server->setExchangeOptions($options->getExchange());

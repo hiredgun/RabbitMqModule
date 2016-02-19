@@ -18,7 +18,7 @@ class StdInProducerController extends AbstractConsoleController
         $route = $request->getParam('route', '');
         $msg = $request->getParam('msg');
 
-        $serviceName = sprintf('rabbitmq.producer.%s', $producerName);
+        $serviceName = sprintf('rabbitmq_module.producer.%s', $producerName);
 
         if (!$this->getServiceLocator()->has($serviceName)) {
             $this->getConsole()->writeLine(

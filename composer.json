@@ -18,13 +18,14 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.5.0",
+    "ext-amqp": "*",
     "videlalvaro/php-amqplib": "~2.6",
-    "zendframework/zend-stdlib": "~2.3",
-    "zendframework/zend-servicemanager": "~2.3",
-    "zendframework/zend-modulemanager": "~2.3",
-    "zendframework/zend-console": "~2.3",
-    "zendframework/zend-serializer": "~2.3"
+    "zendframework/zend-stdlib": "~2.7",
+    "zendframework/zend-servicemanager": "~2.7",
+    "zendframework/zend-modulemanager": "~2.6",
+    "zendframework/zend-console": "~2.6",
+    "zendframework/zend-serializer": "~2.6"
   },
   "require-dev": {
     "phpunit/phpunit": "@stable",
@@ -32,7 +33,8 @@
     "phpmd/phpmd" : "@stable",
     "fabpot/php-cs-fixer": "@stable",
     "mockery/mockery": "@stable",
-    "zendframework/zendframework": "~2.3"
+    "empi89/php-amqp-stubs": "dev-master",
+    "zendframework/zendframework": "~2.5"
   },
   "autoload": {
     "psr-4": {

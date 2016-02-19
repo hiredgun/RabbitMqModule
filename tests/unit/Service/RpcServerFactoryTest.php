@@ -13,7 +13,7 @@ class RpcServerFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'rpc_server' => [
                         'foo' => [
                             'connection' => 'foo',
@@ -57,7 +57,7 @@ class RpcServerFactoryTest extends \PHPUnit_Framework_TestCase
                 static::equalTo(89),
                 static::equalTo(false)
             );
-        $serviceManager->setService('rabbitmq.connection.foo', $connection);
+        $serviceManager->setService('rabbitmq_module.connection.foo', $connection);
         $serviceManager->setService('callback-service', $callback);
 
         $service = $factory->createService($serviceManager);
@@ -81,7 +81,7 @@ class RpcServerFactoryTest extends \PHPUnit_Framework_TestCase
         $serviceManager->setService(
             'Configuration',
             [
-                'rabbitmq' => [
+                'rabbitmq_module' => [
                     'rpc_server' => [
                         'foo' => [
                             'connection' => 'foo',

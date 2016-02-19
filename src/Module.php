@@ -73,11 +73,11 @@ class Module implements
     public function getConsoleUsage(AdapterInterface $console)
     {
         return [
-            'rabbitmq setup-fabric' => 'Sets up the Rabbit MQ fabric',
-            'rabbitmq list consumers' => 'List available consumers',
-            'rabbitmq consumer <name> [--without-signals|-w]' => 'Start a consumer by name',
-            'rabbitmq rpc_server <name> [--without-signals|-w]' => 'Start a rpc server by name',
-            'rabbitmq stdin-producer <name> [--route=] <msg>' => 'Send a message with a producer',
+            'rabbitmq-module setup-fabric' => 'Sets up the Rabbit MQ fabric',
+            'rabbitmq-module list consumers' => 'List available consumers',
+            'rabbitmq-module consumer <name> [--without-signals|-w]' => 'Start a consumer by name',
+            'rabbitmq-module rpc_server <name> [--without-signals|-w]' => 'Start a rpc server by name',
+            'rabbitmq-module stdin-producer <name> [--route=] <msg>' => 'Send a message with a producer',
         ];
     }
 
